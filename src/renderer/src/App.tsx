@@ -1,8 +1,22 @@
 import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
 
+import { IpcListener, IpcEmitter } from '@electron-toolkit/typed-ipc/renderer'
+import { useEffect } from 'react'
+
+const ipc = new IpcListener<IpcRendererEvent>()
+const emitter = new IpcEmitter<IpcEvents>()
+
 function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+  useEffect(() => {
+    ipc.on('ready', (e, arg) => {
+      console.log(arg) // handle the 'ready' event
+    })
+  }, [])
+
+  const sendPingTest = (): void => {
+    emitter.send('pingTest', 'Renderer Process sent pingTest')
+  }
 
   return (
     <>
@@ -22,8 +36,18 @@ function App(): JSX.Element {
           </a>
         </div>
         <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
+          <a target="_blank" rel="noreferrer" onClick={() => sendPingTest()}>
             Send IPC
+          </a>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            onClick={async () => {
+              const res = await emitter.invoke('say-hello')
+              console.log(res)
+            }}
+          >
+            Invoke to IPC Main Handler
           </a>
         </div>
       </div>

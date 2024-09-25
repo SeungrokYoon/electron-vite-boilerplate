@@ -1,7 +1,22 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+
+import { IpcListener, IpcEmitter } from '@electron-toolkit/typed-ipc/main'
+
+const ipc = new IpcListener<IpcEvents>()
+
+const emitter = new IpcEmitter<IpcRendererEvent>()
+
+ipc.on('pingTest', (e, arg) => {
+  console.log(arg)
+  emitter.send(e.sender, 'ready', 'ready from main')
+})
+
+ipc.handle('say-hello', () => {
+  return 'hello from main'
+})
 
 function createWindow(): void {
   // Create the browser window.
@@ -48,9 +63,6 @@ app.whenReady().then(() => {
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
-
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
 
