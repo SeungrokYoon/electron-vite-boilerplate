@@ -1,1 +1,2 @@
-yarn lint
+echo "Running pre-commit hook"
+yarn lint-staged
