@@ -15,7 +15,7 @@
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
     "build": "yarn run typecheck && electron-vite build",
-    "postinstall": "husky ./husky && yarn run when-husky-not-set-as-executable && electron-builder install-app-deps",
+    "postinstall": "husky && electron-builder install-app-deps",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
     "when-husky-not-set-as-executable": "chmod +x .husky/*",
