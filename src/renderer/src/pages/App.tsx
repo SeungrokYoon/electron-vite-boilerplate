@@ -1,5 +1,6 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import { Link } from 'react-router-dom'
+import Versions from '../components/Versions'
+import electronLogo from '../assets/electron.svg'
 
 import { IpcListener, IpcEmitter } from '@electron-toolkit/typed-ipc/renderer'
 import { useEffect } from 'react'
@@ -49,6 +50,7 @@ function App(): JSX.Element {
           >
             Invoke to IPC Main Handler
           </a>
+          <Link to={'/login'}>Move to Login</Link>
         </div>
       </div>
       <Versions></Versions>
