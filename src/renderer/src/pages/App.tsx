@@ -10,8 +10,10 @@ const emitter = new IpcEmitter<IpcEvents>()
 
 function App(): JSX.Element {
   useEffect(() => {
-    ipc.on('ready', (e, arg) => {
-      console.log(arg) // handle the 'ready' event
+    ipc.on('ready', (_, arg) => {
+      // handle the 'ready' event
+      //using underscore, we can indicate the parameter is internally unused :)
+      console.log(arg)
     })
   }, [])
 
