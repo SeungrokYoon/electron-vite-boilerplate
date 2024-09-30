@@ -29,7 +29,7 @@ function App(): JSX.Element {
         Build an Electron app with <span className="react">React</span>
         &nbsp;and <span className="ts">TypeScript</span>
       </div>
-      <h1 className="text-3xl text-red-500 font-bold underline">Hello world!</h1>
+      <h1 className="text-3xl font-bold text-red-500 underline">Hello world!</h1>
       <p className="tip">
         Please try pressing <code>F12</code> to open the devTool
       </p>
